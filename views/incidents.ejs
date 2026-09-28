@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الحوادث - ISO 27001 ISMS</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/vendor/fontawesome/all.min.css">
+    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/vendor/datatables/dataTables.bootstrap5.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+        }
+        body { background-color: var(--light-color); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .sidebar { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); min-height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        .sidebar .nav-link { color: rgba(255,255,255,0.9); padding: 0.75rem 1rem; margin: 0.25rem 0; border-radius: 0.5rem; transition: all 0.3s ease; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background-color: rgba(255,255,255,0.2); color: white; transform: translateX(5px); }
+        .card { border: none; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .iso-logo { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: 10px; }
+.table th { background-color: var(--primary-color); color: white; border: none; }
+    </style>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 sidebar isms-sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="iso-logo">ISO</div>
+                        <h5 class="text-white mb-0">27001 ISMS</h5>
+                    </div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt me-2"></i>لوحة التحكم</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/assets"><i class="fas fa-server me-2"></i>إدارة الأصول</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/risks"><i class="fas fa-exclamation-triangle me-2"></i>إدارة المخاطر</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/incidents"><i class="fas fa-bell me-2"></i>الحوادث</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/policies"><i class="fas fa-file-alt me-2"></i>السياسات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/controls"><i class="fas fa-shield-alt me-2"></i>الضوابط الأمنية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/audits"><i class="fas fa-search me-2"></i>التدقيقات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/reports"><i class="fas fa-chart-bar me-2"></i>التقارير</a></li>
+                    </ul>
+                    
+                    <hr class="text-white my-4">
+                    
+                    <div class="text-white small">
+                        <h6 class="text-white">عمل الطالب محمد علي طاهر</h6>
+                        <p class="mb-1">إدارة أمن المعلومات</p>
+                        <p class="mb-0">التطبيق الاحترافي</p>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="pt-3 pb-2 mb-3">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom mb-4">
+                        <h1 class="h2 text-primary">
+                            <i class="fas fa-bell me-2"></i>
+                            إدارة الاستجابة للحوادث (ISO 27001 A.16.1)
+                        </h1>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addIncidentModal">
+                            <i class="fas fa-plus me-1"></i>إبلاغ عن حادث
+                        </button>
+                    </div>
+                    
+                    <!-- Incident Statistics -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card text-center bg-danger text-white">
+                                <div class="card-body">
+                                    <h3><%= incidents.filter(i => i.severity === 'High' || i.severity === 'Critical').length %></h3>
+                                    <p class="mb-0">حوادث مرتفعة الخطورة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center bg-warning text-white">
+                                <div class="card-body">
+                                    <h3><%= incidents.filter(i => i.severity === 'Medium').length %></h3>
+                                    <p class="mb-0">حوادث متوسطة الخطورة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center bg-info text-white">
+                                <div class="card-body">
+                                    <h3><%= incidents.filter(i => i.severity === 'Low').length %></h3>
+                                    <p class="mb-0">حوادث منخفضة الخطورة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center bg-primary text-white">
+                                <div class="card-body">
+                                    <h3><%= incidents.filter(i => i.status !== 'Resolved').length %></h3>
+                                    <p class="mb-0">الحوادث المفتوحة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- الحوادث Table -->
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-list me-2"></i>سجل حوادث الأمن</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped data-table" id="incidentsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>عنوان الحادث</th>
+                                            <th>التصنيف</th>
+                                            <th>الخطورة</th>
+                                            <th>الحالة</th>
+                                            <th>أبلغ عنه</th>
+                                            <th>المكلّف به</th>
+                                            <th>تاريخ الإبلاغ</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% incidents.forEach(incident => { %>
+                                            <%
+                                                // Was: only 'High' mapped to danger and everything
+                                                // else fell through to 'info', so a Low incident
+                                                // looked the same as a Medium one.
+                                                const severityTone = { Critical: 'danger', High: 'danger', Medium: 'warning', Low: 'info' };
+                                                const reportedSort = moment(incident.reportedDate, 'YYYY-MM-DD HH:mm').isValid() ? incident.reportedDate : '';
+                                            %>
+                                            <tr>
+                                                <td>
+                                                    <strong><%= incident.title %></strong><br>
+                                                    <small class="text-muted"><%= incident.description %></small>
+                                                </td>
+                                                <td><%= ar('incidentCategory', incident.category) %></td>
+                                                <td>
+                                                    <span class="badge bg-<%= severityTone[incident.severity] || 'secondary' %>">
+                                                        <%= ar('severity', incident.severity) %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-<%= incident.status === 'Resolved' ? 'success' : incident.status === 'In Progress' ? 'warning' : 'danger' %>">
+                                                        <%= ar('status', incident.status) %>
+                                                    </span>
+                                                </td>
+                                                <td><%= incident.reportedBy %></td>
+                                                <td><%= incident.assignedTo %></td>
+                                                <td data-sort="<%= reportedSort %>"><%= moment(incident.reportedDate).isValid() ? moment(incident.reportedDate).format('DD/MM/YYYY HH:mm') : '—' %></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary" title="تعديل الحادث" type="button">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" title="عرض الخط الزمني" type="button">
+                                                        <i class="fas fa-clock"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Add Incident Modal -->
+    <div class="modal fade" id="addIncidentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-plus me-2"></i>الإبلاغ عن حادث أمني</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="/incidents" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">عنوان الحادث *</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">التصنيف *</label>
+                                    <select class="form-select" id="category" name="category" required>
+                                        <option value="">اختر التصنيف</option>
+                                        <option value="Access Control">التحكم بالوصول</option>
+                                        <option value="Data Breach">خرق البيانات</option>
+                                        <option value="Malware">البرمجيات الخبيثة</option>
+                                        <option value="Social Engineering">الهندسة الاجتماعية</option>
+                                        <option value="Denial of Service">حجب الخدمة</option>
+                                        <option value="Physical Security">الأمن المادي</option>
+                                        <option value="Configuration Error">خطأ في الإعداد</option>
+                                        <option value="Other">أخرى</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">الوصف *</label>
+                                    <textarea class="form-control" id="description" name="description" rows="4" required placeholder="وصف تفصيلي للحادث..."></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="severity" class="form-label">الخطورة *</label>
+                                    <select class="form-select" id="severity" name="severity" required>
+                                        <option value="">اختر الخطورة</option>
+                                        <option value="Critical">حرج</option>
+                                        <option value="High">مرتفع</option>
+                                        <option value="Medium">متوسط</option>
+                                        <option value="Low">منخفض</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="reportedBy" class="form-label">أبلغ عنه *</label>
+                                    <input type="text" class="form-control" id="reportedBy" name="reportedBy" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignedTo" class="form-label">المكلّف بال 처리 *</label>
+                                    <input type="text" class="form-control" id="assignedTo" name="assignedTo" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-save me-1"></i>إبلاغ عن حادث</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        if (window.jQuery && jQuery.fn && jQuery.fn.DataTable) {
+            jQuery(document).ready(function() {
+                $('#incidentsTable').DataTable({
+                    pageLength: 10,
+                    order: [[6, 'desc']], // Sort by تاريخ الإبلاغ
+                    language: {
+                        emptyTable: 'لا توجد حوادث مسجلة',
+                        search: 'بحث:',
+                        lengthMenu: 'عرض _MENU_ سجل لكل صفحة',
+                        info: 'عرض _START_ إلى _END_ من _TOTAL_ سجل'
+                    }
+                });
+            });
+        }
+    </script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+/* Reference UI: glassmorphism cyber operations dashboard — frontend only */
+:root {
+  --ref-bg: #061326;
+  --ref-panel: rgba(11, 33, 67, .72);
+  --ref-panel-deep: rgba(7, 22, 48, .82);
+  --ref-cyan: #20e4ff;
+  --ref-blue: #3188ff;
+  --ref-purple: #a84dff;
+  --ref-green: #36efad;
+  --ref-pink: #ff3b92;
+  --ref-text: #dcecff;
+  --ref-dim: #7997bb;
+  --ref-border: rgba(118, 192, 255, .32);
+  --ref-glow-cyan: 0 0 18px rgba(32,228,255,.52), inset 0 0 18px rgba(32,228,255,.08);
+  --ref-glow-purple: 0 0 18px rgba(168,77,255,.46), inset 0 0 18px rgba(168,77,255,.08);
+}
+html, body { background: var(--ref-bg) !important; color: var(--ref-text) !important; }
+body {
+  background: radial-gradient(circle at 10% 90%, rgba(0,188,255,.15), transparent 25%), radial-gradient(circle at 80% 15%, rgba(112,0,255,.17), transparent 28%), linear-gradient(135deg, #061326 0%, #071b39 48%, #040d20 100%) !important;
+  position: relative;
+}
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .28; background-image: linear-gradient(rgba(50,157,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(50,157,255,.09) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent); }
+.sidebar { background: linear-gradient(180deg, rgba(8,31,64,.93), rgba(4,16,38,.96)) !important; border: 1px solid rgba(74,170,255,.3) !important; border-radius: 24px 0 0 24px !important; box-shadow: -8px 0 35px rgba(0,220,255,.12), inset 0 0 24px rgba(32,228,255,.05) !important; margin: 18px 0; height: calc(100vh - 36px); }
+.sidebar .nav { gap: 7px; }
+.sidebar .nav-link { min-height: 43px; border: 1px solid transparent !important; border-radius: 999px !important; color: var(--ref-dim) !important; background: transparent !important; transition: .25s ease; }
+.sidebar .nav-link:hover { color: var(--ref-text) !important; border-color: rgba(32,228,255,.35) !important; background: rgba(32,228,255,.09) !important; box-shadow: var(--ref-glow-cyan); transform: translateX(-3px); }
+.sidebar .nav-link.active { color: #effcff !important; border-color: rgba(32,228,255,.65) !important; background: linear-gradient(90deg, rgba(32,228,255,.31), rgba(49,136,255,.18)) !important; box-shadow: var(--ref-glow-cyan); }
+.sidebar .nav-link.active::before { content: ""; width: 4px; height: 22px; border-radius: 8px; background: var(--ref-cyan); box-shadow: 0 0 12px var(--ref-cyan); margin-left: 7px; }
+.iso-logo { border: 1px solid rgba(32,228,255,.6) !important; background: linear-gradient(135deg, rgba(32,228,255,.28), rgba(168,77,255,.2)) !important; box-shadow: var(--ref-glow-cyan); }
+main.col-md-9, main.col-lg-10 { padding-top: 18px !important; }
+main > .pt-3 > .d-flex { min-height: 78px; margin-bottom: 24px !important; border-bottom: 1px solid rgba(70,165,255,.24) !important; }
+main > .pt-3 > .d-flex::after { background: transparent !important; color: var(--ref-dim) !important; }
+main h1, main h1.h2, main h2, main h3, main h4, main h5, main h6 { color: var(--ref-text) !important; letter-spacing: .01em; }
+main h1 i, main .text-primary { color: var(--ref-cyan) !important; filter: drop-shadow(0 0 8px rgba(32,228,255,.55)); }
+.card { background: linear-gradient(145deg, rgba(15,48,91,.69), rgba(6,22,49,.82)) !important; border: 1px solid var(--ref-border) !important; border-radius: 20px !important; backdrop-filter: blur(16px); box-shadow: 0 12px 38px rgba(0,0,0,.22), inset 0 0 24px rgba(57,166,255,.06) !important; transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+.card:hover { transform: translateY(-3px); border-color: rgba(32,228,255,.55) !important; box-shadow: 0 16px 42px rgba(0,0,0,.28), var(--ref-glow-cyan) !important; }
+.card::before { height: 1px !important; background: linear-gradient(90deg, transparent, var(--ref-cyan), var(--ref-purple), transparent) !important; opacity: .9 !important; }
+.card-header, .card-header.bg-primary, .modal-header.bg-primary { background: linear-gradient(100deg, rgba(20,66,119,.68), rgba(75,37,127,.52)) !important; border-bottom: 1px solid rgba(104,194,255,.25) !important; }
+.card-header h5 i, .card-header h6 i { color: var(--ref-cyan) !important; }
+.stat-card, .stat-card.success, .stat-card.warning, .stat-card.danger, .stat-card:not(.success):not(.warning):not(.danger) { background: linear-gradient(135deg, rgba(18,67,113,.72), rgba(41,30,91,.74)) !important; border: 1px solid rgba(96,190,255,.38) !important; box-shadow: 0 12px 30px rgba(0,0,0,.2), inset 0 0 22px rgba(32,228,255,.08) !important; }
+.stat-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: var(--ref-glow-cyan) !important; }
+.stat-card.success { border-color: rgba(54,239,173,.42) !important; }
+.stat-card.warning { border-color: rgba(168,77,255,.46) !important; }
+.stat-card.danger { border-color: rgba(255,59,146,.48) !important; }
+.stat-card .stat-icon { color: var(--ref-cyan) !important; opacity: .62; }
+.stat-card.success .stat-icon { color: var(--ref-green) !important; }
+.stat-card.warning .stat-icon { color: var(--ref-purple) !important; }
+.stat-card.danger .stat-icon { color: var(--ref-pink) !important; }
+.btn { min-height: 42px; border-radius: 999px !important; padding: 9px 19px; border-width: 1px !important; font-weight: 750; transition: transform .22s ease, box-shadow .22s ease, filter .22s ease; }
+.btn:hover { transform: translateY(-3px); filter: brightness(1.12); }
+.btn-primary { color: #061326 !important; background: linear-gradient(90deg, #1fdfff, #48a9ff) !important; border-color: #20e4ff !important; box-shadow: 0 0 20px rgba(32,228,255,.42) !important; }
+.btn-danger { color: #fff !important; background: linear-gradient(90deg, #ff2f77, #ff3b92) !important; border-color: #ff3b92 !important; box-shadow: 0 0 19px rgba(255,59,146,.4) !important; }
+.btn-outline-primary { color: var(--ref-cyan) !important; border-color: rgba(32,228,255,.65) !important; background: rgba(32,228,255,.05) !important; }
+.btn-outline-info { color: #79d8ff !important; border-color: rgba(121,216,255,.5) !important; background: rgba(32,228,255,.04) !important; }
+.btn-outline-primary:hover, .btn-outline-info:hover { color: #061326 !important; background: var(--ref-cyan) !important; box-shadow: var(--ref-glow-cyan) !important; }
+.form-control, .form-select, textarea { min-height: 43px; background: rgba(5,20,43,.72) !important; border: 1px solid rgba(98,184,255,.33) !important; border-radius: 12px !important; color: var(--ref-text) !important; box-shadow: inset 0 0 15px rgba(0,0,0,.12) !important; }
+.form-control:focus, .form-select:focus { border-color: var(--ref-cyan) !important; box-shadow: 0 0 0 3px rgba(32,228,255,.12), 0 0 17px rgba(32,228,255,.16) !important; }
+.table-responsive { border: 1px solid rgba(100,184,255,.26) !important; border-radius: 18px !important; background: rgba(6,20,43,.42) !important; }
+.table { border-spacing: 0 5px !important; }
+.table thead th { border: 0 !important; }
+.badge { border-radius: 999px !important; padding: 7px 11px !important; }
+.progress { height: 9px !important; border-radius: 999px !important; background: rgba(69,111,165,.25) !important; overflow: hidden; }
+.progress-bar { border-radius: 999px !important; box-shadow: 0 0 12px currentColor; }
+.progress-bar.bg-success { background: linear-gradient(90deg, #20e4ff, #36efad) !important; }
+.progress-bar.bg-warning { background: linear-gradient(90deg, #a84dff, #d16dff) !important; }
+.progress-bar.bg-danger { background: linear-gradient(90deg, #ff3b92, #ff5b65) !important; }
+.modal-content { border: 1px solid rgba(99,190,255,.4) !important; border-radius: 22px !important; background: rgba(7,26,56,.94) !important; backdrop-filter: blur(20px); box-shadow: 0 20px 65px rgba(0,0,0,.45), 0 0 22px rgba(32,228,255,.15) !important; }
+.modal-header.bg-danger { background: linear-gradient(90deg, rgba(125,22,89,.9), rgba(255,59,146,.6)) !important; }
+.modal-body, .modal-footer { background: transparent !important; }
+.app-topbar { gap: 8px; }
+.app-system-status, .app-clock, .app-icon-button, .app-command-button { border: 1px solid rgba(109,193,255,.35) !important; background: rgba(12,43,82,.63) !important; border-radius: 999px !important; backdrop-filter: blur(10px); }
+.app-icon-button, .app-command-button { border-radius: 12px !important; }
+.app-system-status i, .app-clock, .app-command-button > i { color: var(--ref-cyan) !important; }
+.app-avatar { border-radius: 50% !important; border: 1px solid rgba(32,228,255,.55); box-shadow: 0 0 15px rgba(32,228,255,.4) !important; }
+.app-notification-menu, .command-dialog { border: 1px solid rgba(88,190,255,.38) !important; border-radius: 20px !important; background: rgba(7,25,55,.95) !important; box-shadow: 0 24px 65px rgba(0,0,0,.5), 0 0 22px rgba(32,228,255,.12) !important; backdrop-filter: blur(20px); }
+.app-notification-menu button:hover, .command-item:hover, .command-item:focus { background: linear-gradient(90deg, rgba(32,228,255,.14), rgba(168,77,255,.15)) !important; }
+.command-input { border-radius: 999px !important; background: rgba(3,14,32,.8) !important; }
+.risk-cell { border-radius: 11px !important; transition: transform .2s ease, filter .2s ease; }
+.risk-cell:hover { transform: scale(1.06); filter: brightness(1.18); }
+.chart-container { min-height: 270px; }
+@keyframes ref-pulse { 0%,100% { box-shadow: 0 0 12px rgba(32,228,255,.25); } 50% { box-shadow: 0 0 25px rgba(32,228,255,.5); } }
+/* LAYOUT FIX: the sidebar is `.col-lg-2` and `main` is `.col-lg-10`, i.e. they
+   already add up to exactly 100% of the row. Any extra horizontal margin on
+   the sidebar pushed the pair past 100%, Bootstrap's `.row { flex-wrap: wrap }`
+   then pushed `main` onto a second line *below* the 100vh-tall sidebar, so the
+   whole page content rendered off-screen. The gap is therefore taken out of
+   the column width instead of being added on top of it. */
+@media (min-width: 992px) {
+  .row > .sidebar.col-lg-2 { margin-inline-end: 16px; width: calc(16.66667% - 16px); }
+  .row > .sidebar.col-lg-2 + main { width: 83.33333%; }
+}
+@media (max-width: 991.98px) { .sidebar { margin: 10px; height: calc(100vh - 20px); border-radius: 20px !important; } }
+
+/* --- Dark theme for the Bootstrap layer ----------------------------------
+   Bootstrap 5.3 ships a light theme and its `.table > :not(caption) > * > *`
+   rule sets `background-color: var(--bs-table-bg)`, which resolves to
+   `var(--bs-body-bg)` = #fff. Our panels are dark glass and the text is
+   #dcecff, so every <td>/<th> was painted white underneath near-white text and
+   the tables rendered blank. Declaring the Bootstrap variables for the dark
+   theme fixes the tables, the DataTables search/length/paging controls, the
+   modals and the dropdowns in one place. */
+:root {
+  --bs-body-bg: #061326;
+  --bs-body-color: #dcecff;
+  --bs-secondary-color: #9ab4d4;
+  --bs-tertiary-color: #9ab4d4;
+  --bs-emphasis-color: #eaf6ff;
+  --bs-emphasis-color-rgb: 234, 246, 255;
+  --bs-border-color: rgba(118, 192, 255, .22);
+  /* Bootstrap paints disabled controls (e.g. the DataTables "Previous"/"Next"
+     links on a single-page table) with --bs-tertiary-bg, which is #e9ecef in
+     the stock light theme -> light grey text on light grey. */
+  --bs-tertiary-bg: rgba(118, 192, 255, .07);
+  --bs-tertiary-color: #7f9bbd;
+  --bs-secondary-bg: rgba(118, 192, 255, .13);
+  --bs-pagination-color: #9fd8f5;
+  --bs-pagination-bg: transparent;
+  --bs-pagination-hover-bg: rgba(32, 228, 255, .14);
+  --bs-pagination-hover-color: #eaf9ff;
+  --bs-pagination-active-bg: rgba(32, 228, 255, .3);
+  --bs-pagination-active-color: #eaf9ff;
+  --bs-pagination-active-border-color: rgba(32, 228, 255, .6);
+  --bs-pagination-disabled-bg: rgba(118, 192, 255, .05);
+  --bs-pagination-disabled-color: #74879e;
+  --bs-pagination-border-color: rgba(118, 192, 255, .22);
+  --bs-table-bg: transparent;
+  --bs-table-color: #dcecff;
+  --bs-table-striped-bg: rgba(118, 192, 255, .07);
+  --bs-table-striped-color: #dcecff;
+  --bs-table-hover-bg: rgba(32, 228, 255, .1);
+  --bs-table-hover-color: #eaf6ff;
+  --bs-table-border-color: rgba(118, 192, 255, .18);
+}
+
+/* Bootstrap declares the active-pagination variables on the .pagination element
+   itself, and a value set on the element always beats an inherited :root one,
+   so they have to be re-declared here or the current page stays #0d6efd. */
+.pagination {
+  --bs-pagination-active-bg: rgba(32, 228, 255, .3);
+  --bs-pagination-active-color: #eaf9ff;
+  --bs-pagination-active-border-color: rgba(32, 228, 255, .6);
+  --bs-pagination-bg: transparent;
+  --bs-pagination-disabled-bg: rgba(118, 192, 255, .05);
+  --bs-pagination-disabled-color: #74879e;
+}
+
+/* Card / list text sits on the translucent panels above. */
+.card, .card-body, .card-title, .card-text, .card-header, .stat-card,
+.stat-card .stat-number, .stat-card .stat-label, .modal-content, .modal-body,
+.modal-footer, .form-label, .form-check-label, main p, main li { color: #dcecff !important; }
+.card .text-muted, .card-body .text-muted, .table .text-muted { color: #9ab4d4 !important; }
+.stat-card .stat-number, .stat-card .stat-label { text-shadow: 0 0 10px rgba(32,228,255,.18); }
+.table thead th { color: #bfe3ff !important; }
+.form-control, .form-select, textarea { color: #dcecff !important; }
+
+/* Contextual badges keep Bootstrap's own colours; the light ones need dark ink
+   instead of the near-white text that used to be forced onto all of them. */
+.badge.bg-warning, .badge.text-bg-warning { color: #2b1d00 !important; }
+.badge.bg-info, .badge.text-bg-info { color: #04212b !important; }
+.badge.bg-light, .badge.text-bg-light { color: #061326 !important; }
+.badge.bg-secondary { background: rgba(118,192,255,.18) !important; color: #cfe0f3 !important; }
+
+/* Stacking: the fixed grid overlay and the sidebar both overlap the flow, so
+   give the flow a definite stacking order. */
+body::before { z-index: 0 !important; }
+.sidebar, main { position: relative !important; z-index: 1 !important; }
+
+/* ===========================================================================
+   Support for the UI that public/js/main.js injects at runtime.
+   None of these selectors existed before, so the topbar, the search box, the
+   notification centre, the command palette and the mobile menu button were
+   injected as unstyled markup (and the `.is-open` toggle did nothing).
+   =========================================================================== */
+
+/* --- Off-canvas sidebar (the `collapse` Bootstrap class removed the nav
+       entirely below 768px, leaving no way to navigate on mobile) --------- */
+.isms-sidebar { display: block !important; }
+.mobile-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  margin-inline-end: 12px;
+  border: 1px solid rgba(109,193,255,.35) !important;
+  border-radius: 12px;
+  background: rgba(12,43,82,.63) !important;
+  color: var(--ref-cyan) !important;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: .2s ease;
+}
+.mobile-menu:hover { box-shadow: var(--ref-glow-cyan); transform: translateY(-2px); }
+@media (max-width: 991.98px) {
+  .mobile-menu { display: inline-flex; }
+  .isms-sidebar {
+    position: fixed !important;
+    inset-block: 10px;
+    inset-inline-start: 10px;
+    width: min(280px, calc(100vw - 40px));
+    height: calc(100vh - 20px) !important;
+    margin: 0 !important;
+    z-index: 1045;
+    transform: translateX(110%);
+    transition: transform .3s ease;
+    overflow-y: auto;
+  }
+  .isms-sidebar.is-open { transform: translateX(0) !important; box-shadow: 0 0 0 100vmax rgba(2,8,20,.62); }
+  .isms-sidebar .position-sticky { position: static !important; }
+  /* The sidebar is out of flow here, so the main column takes the full width. */
+  main.col-md-9, main.col-lg-10 { flex: 0 0 100% !important; max-width: 100% !important; }
+}
+
+/* --- Topbar ----------------------------------------------------------- */
+.app-topbar { position: relative; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-inline-start: auto; }
+.app-system-status {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; font-size: .82rem; font-weight: 700; color: var(--ref-green) !important;
+}
+.app-system-status i { font-size: .55rem; animation: ref-pulse-dot 1.8s ease-in-out infinite; }
+@keyframes ref-pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.app-clock { display: inline-flex; align-items: center; padding: 7px 14px; font-size: .82rem; font-variant-numeric: tabular-nums; }
+.app-search {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 12px;
+  border: 1px solid rgba(109,193,255,.35) !important;
+  border-radius: 999px !important;
+  background: rgba(12,43,82,.63) !important;
+  backdrop-filter: blur(10px);
+}
+.app-search i { color: var(--ref-dim); font-size: .8rem; }
+.app-search input {
+  width: 150px; max-width: 34vw;
+  border: 0; outline: 0; background: transparent;
+  color: var(--ref-text) !important; font-size: .82rem;
+}
+.app-search input::placeholder { color: var(--ref-dim); }
+.app-icon-button {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; color: var(--ref-text) !important; cursor: pointer;
+  transition: .2s ease;
+}
+.app-icon-button:hover { box-shadow: var(--ref-glow-cyan); transform: translateY(-2px); }
+.app-notification-count {
+  position: absolute; top: 2px; inset-inline-end: 2px;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px; background: var(--ref-pink); color: #fff !important;
+  font-size: .66rem; font-weight: 800;
+}
+.app-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, rgba(32,228,255,.28), rgba(168,77,255,.24));
+  color: #effcff !important; font-size: .85rem; font-weight: 800;
+}
+.app-notification-menu {
+  position: absolute; inset-inline-end: 16px; top: 84px; z-index: 1050;
+  width: min(320px, calc(100vw - 32px)); padding: 10px;
+}
+.app-notification-menu[hidden] { display: none; }
+.app-notification-head { display: flex; justify-content: space-between; padding: 8px 10px 12px; color: var(--ref-text); font-size: .85rem; }
+.app-notification-head span { color: var(--ref-cyan); font-weight: 700; }
+.app-notification-menu button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 11px 10px; border: 0; border-radius: 12px;
+  background: transparent; color: var(--ref-text) !important; text-align: start; cursor: pointer;
+}
+.app-notification-menu button i { color: var(--ref-cyan); }
+.app-notification-menu button b, .app-notification-menu button small { display: block; }
+.app-notification-menu button small { color: var(--ref-dim); font-size: .75rem; }
+
+/* --- Command palette (Ctrl+K) ------------------------------------------ */
+.app-command-button {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 15px; color: var(--ref-text) !important; cursor: pointer;
+}
+.app-command-button > span { font-size: .84rem; font-weight: 700; }
+.app-command-button kbd, .command-footer kbd, .command-heading kbd {
+  padding: 2px 7px; border: 1px solid rgba(118,192,255,.35); border-radius: 6px;
+  background: rgba(3,14,32,.7); color: var(--ref-dim) !important;
+  font-size: .7rem; font-family: inherit;
+}
+.command-palette { position: fixed; inset: 0; z-index: 1080; }
+.command-palette[hidden] { display: none; }
+.command-backdrop { position: absolute; inset: 0; background: rgba(2,8,20,.72); backdrop-filter: blur(6px); }
+.command-dialog {
+  position: relative; width: min(560px, calc(100vw - 32px));
+  margin: 12vh auto 0; padding: 18px; animation: cmd-in .18s ease-out;
+}
+@keyframes cmd-in { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+.command-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--ref-text); font-weight: 700; }
+.command-heading i { color: var(--ref-cyan); }
+.command-heading kbd { margin-inline-start: auto; }
+.command-input { width: 100%; min-height: 46px; padding: 10px 18px; }
+.command-list { display: flex; flex-direction: column; gap: 4px; max-height: 46vh; overflow-y: auto; margin-top: 12px; }
+.command-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 12px;
+  color: var(--ref-text) !important; text-decoration: none;
+}
+.command-item > i:first-child { color: var(--ref-cyan); width: 20px; }
+.command-arrow { margin-inline-start: auto; opacity: .45; }
+.command-empty { padding: 22px; text-align: center; color: var(--ref-dim); }
+.command-footer { display: flex; gap: 18px; margin-top: 14px; color: var(--ref-dim); font-size: .76rem; }
+.command-footer kbd { margin-inline-end: 4px; }
+body.palette-open { overflow: hidden; }
+
+/* --- Entrance animation ----------------------------------------------- */
+/* Applied by main.js only. The element is never hidden by default, so if the
+   script is blocked by CSP the page still renders. */
+body.page-ready { animation: page-fade .35s ease both; }
+@keyframes page-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  body.page-ready { animation: none; }
+}
+
+/* --- Midnight theme ---------------------------------------------------- */
+html.theme-midnight {
+  --ref-bg: #01050e;
+  --ref-panel: rgba(4,12,28,.86);
+  --ref-border: rgba(140,110,255,.34);
+  --ref-cyan: #8f7bff;
+  --ref-text: #e6e0ff;
+  --ref-dim: #9d95c4;
+}
+html.theme-midnight body {
+  background: radial-gradient(circle at 15% 85%, rgba(88,28,135,.4), transparent 30%),
+              radial-gradient(circle at 85% 10%, rgba(12,42,102,.5), transparent 32%),
+              linear-gradient(135deg, #01050e 0%, #050a1c 50%, #01030a 100%) !important;
+}
+html.theme-midnight .card,
+html.theme-midnight .stat-card,
+html.theme-midnight .table-responsive {
+  background: linear-gradient(145deg, rgba(14,10,40,.8), rgba(4,6,20,.9)) !important;
+  border-color: rgba(140,110,255,.3) !important;
+}
+
+/* --- Control status accents (controls.ejs emits control-partially-implemented,
+       but only control-partial was defined, so the card lost its border) --- */
+.control-card.control-implemented { border-inline-start: 4px solid var(--ref-green) !important; }
+.control-card.control-partial,
+.control-card.control-partially-implemented { border-inline-start: 4px solid var(--ref-purple) !important; }
+.control-card.control-not-implemented { border-inline-start: 4px solid var(--ref-pink) !important; }
+
+/* --- Risk matrix legibility on the dark glass panels --------------------- */
+.risk-low, .risk-medium, .risk-high, .risk-critical { color: #061326 !important; font-weight: 800; }
+.risk-medium { color: #1b0b2e !important; }
+.risk-critical { color: #ffe9ef !important; }
